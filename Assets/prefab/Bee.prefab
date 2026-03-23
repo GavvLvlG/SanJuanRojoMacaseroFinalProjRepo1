@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3733826224825336487}
   - component: {fileID: 1598119114756295053}
   - component: {fileID: 3596595283468895264}
+  - component: {fileID: -643249643798889523}
   m_Layer: 0
   m_Name: Bee
   m_TagString: Enemy
@@ -151,13 +152,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41761d54ab6554fe6b1725bd408a0950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  behavior: 0
-  speed: 2
-  speedVariance: 0.5
-  changeDirectionInterval: 1.2
-  patrolRadius: 2
-  chaseRange: 5
-  playerTag: Player
-  sineAmplitude: 0.5
-  sineFrequency: 3
-  spawnWithinCameraView: 1
+  enemyPrefab: {fileID: 0}
+  enemyPrefabs: []
+  spawnInterval: 3
+  spawnDelay: 1
+  minX: 0
+  maxX: 0
+  minY: 0
+  maxY: 0
+  randomizeSpawnInterval: 0
+  minSpawnInterval: 1
+  maxSpawnInterval: 5
+  randomizeInitialDelay: 0
+  minSpawnDelay: 0
+  maxSpawnDelay: 2
+  randomizeRotation: 0
+  minRotation: 0
+  maxRotation: 360
+  randomizeScale: 0
+  minScale: 0.8
+  maxScale: 1.2
+  randomizeBehavior: 1
+  minMoveSpeed: 0.5
+  maxMoveSpeed: 2
+  minWanderRadius: 1
+  maxWanderRadius: 4
+  minWanderInterval: 1
+  maxWanderInterval: 3
+  chanceToHaveAttack: 0.6
+  minAttackRate: 1
+  maxAttackRate: 3
+  minAttackDamage: 5
+  maxAttackDamage: 15
+  minAttackRange: 1
+  maxAttackRange: 4
+--- !u!114 &-643249643798889523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4453440235965200064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39213b5f07a074fe287461677b062cf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBehavior
+  movementType: 1
+  attackType: 0
+  moveSpeed: 1
+  wanderRadius: 2
+  wanderInterval: 2
+  attackRate: 1
+  attackDamage: 5
+  attackRange: 1.5

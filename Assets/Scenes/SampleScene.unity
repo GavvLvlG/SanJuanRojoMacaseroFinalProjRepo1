@@ -660,12 +660,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefab: {fileID: 4453440235965200064, guid: e838071f27939470098ffba36763705d, type: 3}
-  spawnInterval: 3
   spawnDelay: 1
+  spawnInterval: 3
   minX: 0
   maxX: 3
   minY: 0
   maxY: 3
+  minMoveSpeed: 0.5
+  maxMoveSpeed: 2
+  wanderRadius: 2
+  wanderInterval: 2
+  chanceToAttack: 0.5
+  minAttackRate: 1
+  maxAttackRate: 3
+  minAttackDamage: 5
+  maxAttackDamage: 15
+  attackRange: 1.5
 --- !u!4 &1538494805
 Transform:
   m_ObjectHideFlags: 0
