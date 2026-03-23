@@ -3,6 +3,9 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+
+    public AudioManager audioManager;
+
     [Header("Movement")]
     public float speed = 5f;
 
@@ -15,6 +18,7 @@ public class Player : MonoBehaviour
     private InputAction moveAction;
     private InputAction shootAction;
     private Rigidbody2D rb; 
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -56,6 +60,8 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning("Fire Point is not assigned! Bullets will be instantiated at the player's position.");
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -136,6 +142,7 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Enemy")) 
         {
+            audioManager.Play("NekoDed");
             Destroy(gameObject);
         }
     }

@@ -1,16 +1,29 @@
+using System;
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+
+public class AudioManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public SoundData[] soundDatas;
+
+    void Awake()
     {
-        
+        foreach (SoundData sound in soundDatas)
+        {
+            AudioSource newAudioSource = gameObject.AddComponent<AudioSource>();
+            newAudioSource.clip = sound.clip;
+            newAudioSource.volume = sound.volume;
+            
+            sound.SetAudioSource(newAudioSource);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void Play(string name)
     {
-        
+        SoundData curSound = Array.Find(soundDatas, soundDatas => soundDatas.name == name);
+
+        curSound.GetAudioSource().Play();
     }
 }
