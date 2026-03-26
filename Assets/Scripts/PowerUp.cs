@@ -3,7 +3,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     // Enum to manage different power-up types
-    public enum PowerUpType { SpeedBoost, MultiShot }
+    public enum PowerUpType { SpeedBoost, MultiShot, HomingShot }
 
     public PowerUpType powerUpType; // The type of power-up this is
 

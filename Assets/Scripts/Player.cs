@@ -13,9 +13,10 @@ public class Player : MonoBehaviour
     public float bulletForce = 20f;
     public Transform firePoint; 
 
-    [Header("Power-Ups")]
-    public bool isMultiShotActive = false; // Track multi-shot status
-    public int multiShotCount = 3; // Number of bullets to shoot at once when multi-shot is active
+   [Header("Power-Ups")]
+public bool isMultiShotActive = false; // Track multi-shot status
+public int multiShotCount = 3; // Number of bullets to shoot at once when multi-shot is active
+public bool isHomingShotActive = false; // Track homing shot status
 
     private PlayerInput playerInput;
     private InputAction moveAction;
@@ -82,48 +83,43 @@ public class Player : MonoBehaviour
         rb.linearVelocity = velocity;  // Fixed velocity update
     }
 
-    public void Shoot()
+public void Shoot()
 {
     if (bulletPrefab != null)
     {
-        Vector3 spawnPosition = transform.position;
-        if (firePoint != null)
-        {
-            spawnPosition = firePoint.position;
-        }
+        // Default to player's position if firePoint is not assigned
+        Vector3 spawnPosition = (firePoint != null) ? firePoint.position : transform.position;
 
-        // Determine shooting direction
-        Vector2 shootDirection = Vector2.up;
-        if (firePoint != null)
-        {
-            shootDirection = new Vector2(firePoint.up.x, firePoint.up.y);
-        }
-
-        // Shoot multiple bullets if multi-shot is active
         int shotCount = isMultiShotActive ? multiShotCount : 1;
-        float angleIncrement = 15f; // Spread angle for multi-shot
+        float angleIncrement = 15f;
 
         for (int i = 0; i < shotCount; i++)
         {
-            GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
-            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+            GameObject bullet;
 
-            if (bulletRb != null)
+            if (isHomingShotActive)
             {
-                // Calculate spread angles for multiple shots
-                float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg + (i - (shotCount / 2)) * angleIncrement;
-                Vector2 spreadDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-
-                // Apply velocity in the chosen direction
-                bulletRb.linearVelocity = spreadDirection.normalized * bulletForce;
-
-                // Rotate the bullet to face the travel direction
-                bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                // Instantiate the homing bullet (make sure bulletPrefab is set to Bullet2 or your homing bullet prefab)
+                bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+                var homingComponent = bullet.GetComponent<Bullet2>();
+                if (homingComponent != null)
+                {
+                    // Initialize any specific properties if needed
+                    homingComponent.isHoming = true; // Make sure Bullet2 uses this flag
+                }
             }
             else
             {
-                Debug.LogError("Bullet prefab is missing a Rigidbody2D component!");
-                Destroy(bullet);
+                // Instantiate normal bullet
+                bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
+                Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+                if (bulletRb != null)
+                {
+                    float angle = Mathf.Atan2(firePoint.up.y, firePoint.up.x) * Mathf.Rad2Deg + (i - (shotCount / 2)) * angleIncrement;
+                    Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+                    bulletRb.linearVelocity = direction.normalized * bulletForce;
+                    bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                }
             }
         }
     }
@@ -132,14 +128,20 @@ public class Player : MonoBehaviour
         Debug.LogError("Bullet Prefab is not assigned!");
     }
 }
-
-    // Call this function to activate multi-shot power-up
+    
     public void ActivateMultiShot()
     {
         isMultiShotActive = true;
         Debug.Log("Multi-shot activated!");
-        // Optionally, you can add a timer to deactivate multi-shot after some time
+       
     }
+
+    public void ActivateHomingShot()
+{
+    isHomingShotActive = true;
+    Debug.Log("Homing shot activated!");
+    
+}
 
     void OnTriggerEnter2D(Collider2D collision)
     {
