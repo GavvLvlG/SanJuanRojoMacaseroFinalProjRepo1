@@ -25,11 +25,10 @@ public class GameManager : MonoBehaviour
     }
 
     public void AddScore(int points)
-    {
-        score += points;
-        UpdateScoreText();
-    }
-
+{
+    score += points;
+    UpdateScoreText();
+}
     
     public void ResetScore()
     {

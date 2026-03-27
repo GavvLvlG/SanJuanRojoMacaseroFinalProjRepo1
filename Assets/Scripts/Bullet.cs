@@ -10,15 +10,15 @@ public class Bullet : MonoBehaviour
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
+{
+    if (collision.CompareTag("Enemy"))
     {
-        if (collision.CompareTag("Enemy"))
+        if (GameManager.instance != null)
         {
-            if (GameManager.instance != null)
-            {
-                GameManager.instance.AddScore(1);
-            }
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
+            GameManager.instance.AddScore(1);
         }
+        Destroy(collision.gameObject);
+        Destroy(gameObject);
     }
+}
 }
