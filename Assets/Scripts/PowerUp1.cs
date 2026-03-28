@@ -5,7 +5,7 @@ public class PowerUp1 : PowerUp
 {
     public float powerUpDuration = 5f; // Duration of the power-up effect
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the colliding object is the player
         if (other.CompareTag("Player"))

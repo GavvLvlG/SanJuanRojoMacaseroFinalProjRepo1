@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 
     [Header("Movement")]
     public float speed = 5f;
+    private Animator animator;
+    private Vector2 lastDirection;
 
     [Header("Bullet")]
     public GameObject bulletPrefab;
@@ -46,6 +48,7 @@ public bool isHomingShotActive = false; // Track homing shot status
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         moveAction = playerInput.actions.FindAction("Move");
         shootAction = playerInput.actions.FindAction("Shoot");
 
@@ -67,13 +70,26 @@ public bool isHomingShotActive = false; // Track homing shot status
         if (shootAction.WasPressedThisFrame())
         {
             Shoot();
+
         }
     }
 
-    void FixedUpdate()
+void FixedUpdate()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
         Move(direction);
+
+        // Only update walking animation if player is moving
+        bool isMoving = direction.sqrMagnitude > 0.01f; // small threshold for floating point error
+        animator.SetBool("IsWalk", isMoving);
+
+        if (isMoving)
+        {
+            // Update lastDirection only when moving
+            lastDirection = direction.normalized;
+        }
+
+       
     }
 
     private void Move(Vector2 direction)
@@ -83,7 +99,7 @@ public bool isHomingShotActive = false; // Track homing shot status
         rb.linearVelocity = velocity;  // Fixed velocity update
     }
 
-public void Shoot()
+    public void Shoot()
 {
     if (bulletPrefab != null)
     {
