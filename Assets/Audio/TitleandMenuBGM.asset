@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1233149941 &-6280946747475446694
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: JUST COMMUNICATION_Mobile Suit Gundam Wing 8bit_{-6280946747475446694}
+  m_AudioClip: {fileID: 8300000, guid: 87aa7f405aaab41fa9a8ef537ae43167, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-759449153507033658
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: vestige_Mobile Suit Gundam SEED Destiny 8bit_{-759449153507033658}
+  m_AudioClip: {fileID: 8300000, guid: ca1a74c2bcb1243bfbcbfd3d04d4960e, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &589516444798911467
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hakanaku mo Towa no Kanashi_Mobile Suit Gundam 00 8bit_{589516444798911467}
+  m_AudioClip: {fileID: 8300000, guid: 8d26304846bd24f8abc87b76bbaea4e2, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &2856597148722750655
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Fly! Gundam_Mobile Suit Gundam 8bit_{2856597148722750655}
+  m_AudioClip: {fileID: 8300000, guid: 80f42f8ad922a4eabab2d25875d39467, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &4788731510894196678
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: The Blessing_Mobile Suit Gundam_ The Witch from Mercury 8bit_{4788731510894196678}
+  m_AudioClip: {fileID: 8300000, guid: d8f0ac145c1ac47c4b13eed9ae32477e, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &5576813679080107455
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RAGE OF DUST_Mobile Suit Gundam_ Iron-Blooded Orphans 8bit 4_{5576813679080107455}
+  m_AudioClip: {fileID: 8300000, guid: ecae429634a154b04a88d4727c08b0b7, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1307931743 &6418180475301049370
+AudioRandomContainer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TitleandMenuBGM
+  m_Volume: 0
+  m_Pitch: 0
+  m_AutomaticTriggerTime: 0
+  m_LoopCount: 1
+  m_VolumeRandomizationRange: {x: 0, y: 0}
+  m_PitchRandomizationRange: {x: 0, y: 0}
+  m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0}
+  m_LoopCountRandomizationRange: {x: 0, y: 0}
+  m_Elements:
+  - {fileID: 2856597148722750655}
+  - {fileID: 5576813679080107455}
+  - {fileID: 4788731510894196678}
+  - {fileID: -759449153507033658}
+  - {fileID: 589516444798911467}
+  - {fileID: -6280946747475446694}
+  m_AvoidRepeatingLast: 0
+  m_PlaybackMode: 2
+  m_TriggerMode: 1
+  m_AutomaticTriggerMode: 1
+  m_LoopMode: 2
+  m_VolumeRandomizationEnabled: 0
+  m_PitchRandomizationEnabled: 0
+  m_AutomaticTriggerTimeRandomizationEnabled: 0
+  m_LoopCountRandomizationEnabled: 0

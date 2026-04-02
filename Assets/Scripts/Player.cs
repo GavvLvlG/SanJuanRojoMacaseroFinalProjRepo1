@@ -3,8 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    public AudioManager audioManager;
-
+    public SFXManager SFXManager; // Reference to the SFXManager for playing sound effects
     [Header("Movement")]
     public float speed = 5f;
     private Animator animator;
@@ -163,7 +162,7 @@ void FixedUpdate()
     {
         if (collision.CompareTag("Enemy")) 
         {
-            audioManager.Play("NekoDed");
+            SFXManager.Play("NekoDed");
             Destroy(gameObject);
         }
     }
