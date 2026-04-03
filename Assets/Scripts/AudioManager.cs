@@ -29,71 +29,60 @@ public class AudioManager : MonoBehaviour
     // AudioSource belonged to a scene object that gets destroyed.
     private AudioSource persistentMenuSource;
 
+    // Public accessor for the singleton
+    public static AudioManager Instance => instance;
+
     void Awake()
     {
-        // singleton behavior
-        if (instance != null && instance != this)
+        if (instance == null)
         {
-            Destroy(gameObject);
-            return;
-        }
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Keeps audio playing across scenes
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-
-        // initialize SoundData audio sources if provided
-        if (soundDatas != null)
-        {
-            foreach (SoundData sound in soundDatas)
+            // If the inspector assigned an AudioSource that's on a scene object,
+            // create/copy a persistent AudioSource on this AudioManager GameObject
+            // so the music continues across scene changes.
+            if (menuMusicSource != null)
             {
-                AudioSource newAudioSource = gameObject.AddComponent<AudioSource>();
-                newAudioSource.clip = sound.clip;
-                newAudioSource.volume = sound.volume;
-                newAudioSource.loop = false;
-                newAudioSource.playOnAwake = false;
+                // If the assigned AudioSource isn't already on this GameObject,
+                // create a persistent copy to own the music.
+                if (menuMusicSource.gameObject != gameObject)
+                {
+                    persistentMenuSource = gameObject.AddComponent<AudioSource>();
+                    persistentMenuSource.clip = menuMusicSource.clip;
+                    persistentMenuSource.volume = menuMusicSource.volume;
+                    persistentMenuSource.pitch = menuMusicSource.pitch;
+                    persistentMenuSource.loop = menuMusicSource.loop;
+                    persistentMenuSource.playOnAwake = false;
+                    persistentMenuSource.spatialBlend = menuMusicSource.spatialBlend;
 
-                sound.SetAudioSource(newAudioSource);
-            }
-        }
-
-        // Create a persistent AudioSource on this GameObject to play menu music
-        persistentMenuSource = gameObject.AddComponent<AudioSource>();
-        persistentMenuSource.playOnAwake = false;
-
-        // If the user assigned an AudioSource from a scene GameObject in the inspector,
-        // copy its clip/volume to the persistent source so it will survive scene changes.
-        if (menuMusicSource != null)
-        {
-            if (menuMusicSource.clip != null)
-            {
-                persistentMenuSource.clip = menuMusicSource.clip;
-                persistentMenuSource.volume = menuMusicSource.volume;
+                    // Use the persistent source from now on
+                    menuMusicSource = persistentMenuSource;
+                }
+                else
+                {
+                    // If the assigned source is already on this GameObject, use it as persistent
+                    persistentMenuSource = menuMusicSource;
+                }
             }
 
-            // Redirect to persistent source so we don't reference a scene-bound AudioSource
-            menuMusicSource = persistentMenuSource;
+            // Subscribe to scene load events to start/stop menu music
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
-            // If no inspector AudioSource assigned but a SoundData name is set, try to use its clip
-            if (!string.IsNullOrEmpty(menuMusicName) && soundDatas != null)
-            {
-                SoundData sd = Array.Find(soundDatas, s => s.name == menuMusicName);
-                if (sd != null && sd.clip != null)
-                {
-                    persistentMenuSource.clip = sd.clip;
-                    persistentMenuSource.volume = sd.volume;
-                    menuMusicSource = persistentMenuSource;
-                }
-            }
+            Destroy(gameObject); // Prevents duplicate music objects
         }
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        // Unsubscribe if this is the singleton instance
+        if (instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            instance = null;
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -238,8 +227,7 @@ public class AudioManager : MonoBehaviour
     {
         if (soundDatas == null)
             return;
-
-        SoundData curSound = Array.Find(soundDatas, soundDatas => soundDatas.name == name);
+        SoundData curSound = Array.Find(soundDatas, s => s.name == name);
         if (curSound == null)
         {
             Debug.LogWarning($"AudioManager: sound '{name}' not found.");
