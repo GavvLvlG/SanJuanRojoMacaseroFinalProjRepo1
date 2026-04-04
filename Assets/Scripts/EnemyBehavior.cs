@@ -18,6 +18,12 @@ public class EnemyBehavior : MonoBehaviour
     public float attackDamage = 5f;
     public float attackRange = 1.5f;
 
+    // Animator to play animations on the enemy (assign in inspector)
+    public Animator animator;
+    // Names for animator parameters (change to match your Animator)
+    public string animIsMovingParam = "isMoving"; // bool
+    public string animAttackTrigger = "Attack"; // trigger
+
     Vector3 originPosition;
     Vector3 currentTarget;
     Coroutine wanderCoroutine;
@@ -30,6 +36,12 @@ public class EnemyBehavior : MonoBehaviour
         // Start behavior coroutines according to configured types
         SetupMovement();
         SetupAttack();
+
+        // Initialize animator parameters to match starting state
+        if (animator != null)
+        {
+            animator.SetBool(animIsMovingParam, movementType == MovementType.Wander);
+        }
     }
 
     public void Initialize(MovementType mType, AttackType aType, float speed, float radius, float wInterval, float aRate, float aDamage, float aRange)
@@ -107,6 +119,11 @@ public class EnemyBehavior : MonoBehaviour
         {
             // Start wandering coroutine
             wanderCoroutine = StartCoroutine(WanderRoutine());
+            if (animator != null) animator.SetBool(animIsMovingParam, true);
+        }
+        else
+        {
+            if (animator != null) animator.SetBool(animIsMovingParam, false);
         }
         // Idle needs no coroutine
     }
@@ -131,11 +148,16 @@ public class EnemyBehavior : MonoBehaviour
             // move until close to target
             while (Vector3.Distance(transform.position, currentTarget) > 0.1f)
             {
+                // Ensure the moving animation is active while moving
+                if (animator != null) animator.SetBool(animIsMovingParam, true);
+
                 transform.position = Vector3.MoveTowards(transform.position, currentTarget, moveSpeed * Time.deltaTime);
                 yield return null;
             }
 
             // wait before choosing next wander target
+            // we're idle while waiting for next target
+            if (animator != null) animator.SetBool(animIsMovingParam, false);
             yield return new WaitForSeconds(wanderInterval);
         }
     }
@@ -164,6 +186,13 @@ public class EnemyBehavior : MonoBehaviour
         // Placeholder attack behavior: send a message to the target if it implements a damage handler
         // This keeps things decoupled; no error if the method doesn't exist
         target.SendMessage("TakeDamage", attackDamage, SendMessageOptions.DontRequireReceiver);
+
+        // Trigger attack animation if available
+        if (animator != null)
+        {
+            // Use trigger so animation plays once per attack
+            animator.SetTrigger(animAttackTrigger);
+        }
 
         // For visibility during testing, log the attack
         Debug.LogFormat("{0} attacked {1} for {2} damage (type: {3})", name, target.name, attackDamage, attackType);
