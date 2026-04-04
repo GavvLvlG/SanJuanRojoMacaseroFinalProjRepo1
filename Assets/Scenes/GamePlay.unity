@@ -897,6 +897,9 @@ MonoBehaviour:
   - name: NekoDed
     clip: {fileID: 8300000, guid: 3e65ea4f7d59949489b7ec64abddaca7, type: 3}
     volume: 1
+  - name: NekoShoot
+    clip: {fileID: 8300000, guid: 5c9f66c22af184b4694fd399ade2adf4, type: 3}
+    volume: 1
 --- !u!4 &1241818727
 Transform:
   m_ObjectHideFlags: 0
@@ -1052,6 +1055,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1989369818
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4453440235965200064, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_Name
+      value: Bee
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 9.308341
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7.6463156
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 533.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 338.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.70763975
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0071433582
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.007131868
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7065014
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -1.157
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794238016709011662, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -89.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969842721039720072, guid: e838071f27939470098ffba36763705d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 8989642dd219d49d0a40b8feb0975c10, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e838071f27939470098ffba36763705d, type: 3}
 --- !u!1 &2088300619
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,12 +1280,16 @@ PrefabInstance:
       value: MechaCat
       objectReference: {fileID: 0}
     - target: {fileID: 7694669681835496499, guid: 66881c1cdb0b64ed4824c19508c6b60d, type: 3}
+      propertyPath: SFXManager
+      value: 
+      objectReference: {fileID: 1241818726}
+    - target: {fileID: 7694669681835496499, guid: 66881c1cdb0b64ed4824c19508c6b60d, type: 3}
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7694669681835496499, guid: 66881c1cdb0b64ed4824c19508c6b60d, type: 3}
       propertyPath: isMultiShotActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1233,3 +1309,4 @@ SceneRoots:
   - {fileID: 1974684015}
   - {fileID: 1241818727}
   - {fileID: 21649369}
+  - {fileID: 1989369818}

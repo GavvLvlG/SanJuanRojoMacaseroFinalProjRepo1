@@ -20,7 +20,7 @@ public class SceneChanger : MonoBehaviour
     public string mainMenuSceneName = "MainMenu";
 
     [Tooltip("Optional: scene name to use for a 'Gameplay' button. Leave empty to call LoadSceneByName from the Button instead.")]
-    public string gameplaySceneName = "Gameplay";
+    public string gameplaySceneName = "GamePlay";
     
     [Tooltip("Optional: scene name to use for a 'Title' button. Leave empty to call LoadSceneByName from the Button instead.")]
     public string titleSceneName = "Title";

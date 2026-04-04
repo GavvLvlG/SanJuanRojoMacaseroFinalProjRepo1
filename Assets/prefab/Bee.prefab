@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8794238016709011662}
   - component: {fileID: 3733826224825336487}
-  - component: {fileID: 1598119114756295053}
-  - component: {fileID: 3596595283468895264}
-  - component: {fileID: -643249643798889523}
+  - component: {fileID: 7480559505883841445}
+  - component: {fileID: 4592330079368679096}
+  - component: {fileID: 2729381685123491036}
+  - component: {fileID: 8969842721039720072}
   m_Layer: 0
   m_Name: Bee
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4453440235965200064}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.5445, y: 0.01, z: 0}
-  m_LocalScale: {x: 4.0091596, y: 3.8191118, z: 1}
+  m_LocalRotation: {x: 0.0071433582, y: -0.007131868, z: -0.7065014, w: 0.70763975}
+  m_LocalPosition: {x: 8.328111, y: 1.6206952, z: -0.0010635965}
+  m_LocalScale: {x: 1.3856233, y: 1.1709877, z: 0.1004}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.002, y: -1.157, z: -89.908}
 --- !u!212 &3733826224825336487
 SpriteRenderer:
   serializedVersion: 2
@@ -84,18 +85,58 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: f6a2426379380434089f30c3c072a594, type: 3}
+  m_Sprite: {fileID: -3942638182503934412, guid: 3ae91b5a826ce4e00b1cb52d11c4205f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 6.22, y: 6.02}
+  m_Size: {x: 7.36, y: 7.36}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &1598119114756295053
-BoxCollider2D:
+--- !u!50 &7480559505883841445
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4453440235965200064}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &4592330079368679096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4453440235965200064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ba0c38512bd9a1498eab65c0258c980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+  lifetime: 3
+--- !u!70 &2729381685123491036
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -128,81 +169,28 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.037760258, y: 0.097181305}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.64}
-    newSize: {x: 6.22, y: 6.02}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.5559869, y: 0.6161289}
-  m_EdgeRadius: 0
---- !u!114 &3596595283468895264
-MonoBehaviour:
+  m_Offset: {x: -0.024589986, y: 0.065644845}
+  m_Size: {x: 0.4859396, y: 0.68869436}
+  m_Direction: 0
+--- !u!95 &8969842721039720072
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4453440235965200064}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41761d54ab6554fe6b1725bd408a0950, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 0}
-  enemyPrefabs: []
-  spawnInterval: 3
-  spawnDelay: 1
-  minX: 0
-  maxX: 0
-  minY: 0
-  maxY: 0
-  randomizeSpawnInterval: 0
-  minSpawnInterval: 1
-  maxSpawnInterval: 5
-  randomizeInitialDelay: 0
-  minSpawnDelay: 0
-  maxSpawnDelay: 2
-  randomizeRotation: 0
-  minRotation: 0
-  maxRotation: 360
-  randomizeScale: 0
-  minScale: 0.8
-  maxScale: 1.2
-  randomizeBehavior: 1
-  minMoveSpeed: 0.5
-  maxMoveSpeed: 2
-  minWanderRadius: 1
-  maxWanderRadius: 4
-  minWanderInterval: 1
-  maxWanderInterval: 3
-  chanceToHaveAttack: 0.6
-  minAttackRate: 1
-  maxAttackRate: 3
-  minAttackDamage: 5
-  maxAttackDamage: 15
-  minAttackRange: 1
-  maxAttackRange: 4
---- !u!114 &-643249643798889523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4453440235965200064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39213b5f07a074fe287461677b062cf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyBehavior
-  movementType: 1
-  attackType: 0
-  moveSpeed: 1
-  wanderRadius: 2
-  wanderInterval: 2
-  attackRate: 1
-  attackDamage: 5
-  attackRange: 1.5
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

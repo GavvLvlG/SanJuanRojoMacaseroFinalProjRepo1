@@ -66,21 +66,27 @@ public bool isHomingShotActive = false; // Track homing shot status
 
     void Update()
     {
-        if (shootAction.WasPressedThisFrame())
+        if (shootAction != null && shootAction.WasPressedThisFrame())
         {
             Shoot();
-
         }
     }
 
 void FixedUpdate()
     {
-        Vector2 direction = moveAction.ReadValue<Vector2>();
+        Vector2 direction = Vector2.zero;
+        if (moveAction != null)
+        {
+            direction = moveAction.ReadValue<Vector2>();
+        }
         Move(direction);
 
         // Only update walking animation if player is moving
         bool isMoving = direction.sqrMagnitude > 0.01f; // small threshold for floating point error
-        animator.SetBool("IsWalk", isMoving);
+        if (animator != null)
+        {
+            animator.SetBool("IsWalk", isMoving);
+        }
 
         if (isMoving)
         {
@@ -95,7 +101,10 @@ void FixedUpdate()
     {
         Vector2 normalizedDirection = direction.normalized;
         Vector2 velocity = normalizedDirection * speed;
-        rb.linearVelocity = velocity;  // Fixed velocity update
+        if (rb != null)
+        {
+            rb.linearVelocity = velocity;  // Fixed velocity update
+        }
     }
 
     public void Shoot()
@@ -130,13 +139,34 @@ void FixedUpdate()
                 Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
                 if (bulletRb != null)
                 {
-                    float angle = Mathf.Atan2(firePoint.up.y, firePoint.up.x) * Mathf.Rad2Deg + (i - (shotCount / 2)) * angleIncrement;
+                    // Determine base direction: prefer firePoint, then lastDirection, then transform.up
+                    Vector2 baseDir;
+                    if (firePoint != null)
+                    {
+                        baseDir = firePoint.up;
+                    }
+                    else if (lastDirection != Vector2.zero)
+                    {
+                        baseDir = lastDirection;
+                    }
+                    else
+                    {
+                        baseDir = transform.up;
+                    }
+
+                    float baseAngle = Mathf.Atan2(baseDir.y, baseDir.x) * Mathf.Rad2Deg;
+                    float angle = baseAngle + (i - (shotCount / 2)) * angleIncrement;
                     Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
                     bulletRb.linearVelocity = direction.normalized * bulletForce;
                     bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
                 }
             }
-        }
+            
+            if (SFXManager != null)
+            {
+                SFXManager.Play("NekoShoot");
+            }
+        } // end for
     }
     else
     {
@@ -162,7 +192,10 @@ void FixedUpdate()
     {
         if (collision.CompareTag("Enemy")) 
         {
-            SFXManager.Play("NekoDed");
+            if (SFXManager != null)
+            {
+                SFXManager.Play("NekoDed");
+            }
             Destroy(gameObject);
         }
     }
