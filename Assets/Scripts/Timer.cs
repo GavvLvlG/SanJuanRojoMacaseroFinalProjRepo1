@@ -21,7 +21,7 @@ public class Timer : MonoBehaviour
         }
         else if (instance != this)
         {
-            Debug.LogWarning("Another TimerManager instance already exists. Destroying duplicate.");
+            Debug.LogWarning("Another Timer instance already exists. Destroying duplicate.");
             Destroy(gameObject);
             return;
         }

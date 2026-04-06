@@ -196,6 +196,22 @@ void FixedUpdate()
             {
                 SFXManager.Play("NekoDed");
             }
+            // Notify the GameManager that the player died so it can show the Game Over UI.
+            // Prefer GameManager (centralized), fall back to GameOverManager if present.
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.OnPlayerDeath();
+            }
+            else if (GameOverManager.instance != null)
+            {
+                GameOverManager.instance.GameOver();
+            }
+            else
+            {
+                Debug.LogError("Player: No GameManager or GameOverManager found to handle game over.");
+            }
+
+            // Destroy the player object (keeps behavior consistent with previous implementation)
             Destroy(gameObject);
         }
     }

@@ -25,10 +25,11 @@ public class GameManager : MonoBehaviour
     }
 
     public void AddScore(int points)
-{
-    score += points;
-    UpdateScoreText();
-}
+    {
+        score += points;
+        UpdateScoreText();
+    }
+
     
     public void ResetScore()
     {
@@ -51,6 +52,23 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("GameManager: scoreText is not assigned in the Inspector.");
+        }
+    }
+
+    /// <summary>
+    /// Called when the player dies. Forward to GameOverManager if present, otherwise pause the game.
+    /// This keeps older code that calls GameManager.OnPlayerDeath() working.
+    /// </summary>
+    public void OnPlayerDeath()
+    {
+        if (GameOverManager.instance != null)
+        {
+            GameOverManager.instance.GameOver();
+        }
+        else
+        {
+            Debug.LogWarning("GameManager.OnPlayerDeath called but no GameOverManager found. Pausing game.");
+            Time.timeScale = 0f;
         }
     }
 }
