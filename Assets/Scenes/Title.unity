@@ -530,6 +530,7 @@ MonoBehaviour:
   menuSceneNames:
   - Title
   - MainMenu
+  - Credits
   menuMusicSource: {fileID: 1385730968}
   menuMusicName: 
   stopMusicSceneNames:
@@ -647,6 +648,8 @@ MonoBehaviour:
   destroyOnTargetScene: 1
   mainMenuSceneName: MainMenu
   gameplaySceneName: Gameplay
+  titleSceneName: Title
+  creditsSceneName: Credits
 --- !u!1 &1432263100
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +769,8 @@ MonoBehaviour:
   destroyOnTargetScene: 1
   mainMenuSceneName: MainMenu
   gameplaySceneName: Gameplay
+  titleSceneName: Title
+  creditsSceneName: Credits
 --- !u!1 &1499250251
 GameObject:
   m_ObjectHideFlags: 0

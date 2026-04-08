@@ -25,6 +25,9 @@ public class SceneChanger : MonoBehaviour
     [Tooltip("Optional: scene name to use for a 'Title' button. Leave empty to call LoadSceneByName from the Button instead.")]
     public string titleSceneName = "Title";
 
+    [Tooltip("Optional: scene name to use for a 'Credits' button. Leave empty to call LoadSceneByName from the Button instead.")]
+    public string creditsSceneName = "Credits";
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -115,6 +118,20 @@ public class SceneChanger : MonoBehaviour
         }
 
         SceneManager.LoadScene(titleSceneName);
+    }
+
+    /// <summary>
+    /// Convenience: load the configured credits scene name.
+    /// </summary>
+    public void LoadCredits()
+    {
+        if (string.IsNullOrWhiteSpace(creditsSceneName))
+        {
+            Debug.LogWarning("SceneChanger: creditsSceneName is empty. Use LoadSceneByName instead or set the name in the inspector.");
+            return;
+        }
+
+        SceneManager.LoadScene(creditsSceneName);
     }
 
     /// <summary>

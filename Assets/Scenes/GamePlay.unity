@@ -248,6 +248,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &174397528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 174397530}
+  - component: {fileID: 174397529}
+  m_Layer: 0
+  m_Name: EnemySpawn (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &174397529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174397528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41761d54ab6554fe6b1725bd408a0950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  enemyPrefab: {fileID: 105264625700527449, guid: 98595ad19ea4a4ca58fb296c28bb0eb6, type: 3}
+  spawnDelay: 1
+  spawnInterval: 3
+  minX: 0
+  maxX: 3
+  minY: 0
+  maxY: 3
+  allowMultipleSpawns: 0
+  maxActiveSpawns: 5
+  minMoveSpeed: 0.5
+  maxMoveSpeed: 2
+  wanderRadius: 2
+  wanderInterval: 2
+--- !u!4 &174397530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174397528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.56, y: 1.19, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &215070193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,7 +1062,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -548.6, y: 292.7}
+  m_AnchoredPosition: {x: -630.4, y: 311.9}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1137615957
@@ -1476,7 +1533,7 @@ Transform:
   m_GameObject: {fileID: 1233711081}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04, y: -0.11, z: 0}
+  m_LocalPosition: {x: -0.17, y: -0.08, z: 0}
   m_LocalScale: {x: 2.752642, y: 2.6808147, z: 4.4642982}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1614,18 +1671,12 @@ MonoBehaviour:
   maxX: 3
   minY: 0
   maxY: 3
-  allowMultipleSpawns: 1
+  allowMultipleSpawns: 0
   maxActiveSpawns: 5
   minMoveSpeed: 0.5
   maxMoveSpeed: 2
   wanderRadius: 2
   wanderInterval: 2
-  chanceToAttack: 0.5
-  minAttackRate: 1
-  maxAttackRate: 3
-  minAttackDamage: 5
-  maxAttackDamage: 15
-  attackRange: 1.5
 --- !u!4 &1538494805
 Transform:
   m_ObjectHideFlags: 0
@@ -1778,6 +1829,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762949515}
   m_CullTransparentMesh: 1
+--- !u!1 &1888994296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1888994298}
+  - component: {fileID: 1888994297}
+  m_Layer: 0
+  m_Name: EnemySpawn (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1888994297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888994296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41761d54ab6554fe6b1725bd408a0950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  enemyPrefab: {fileID: 5298364426298996053, guid: 09c8114def07b4a21bf66c19202ef34a, type: 3}
+  spawnDelay: 1
+  spawnInterval: 3
+  minX: 0
+  maxX: 3
+  minY: 0
+  maxY: 3
+  allowMultipleSpawns: 0
+  maxActiveSpawns: 5
+  minMoveSpeed: 0.5
+  maxMoveSpeed: 2
+  wanderRadius: 2
+  wanderInterval: 2
+--- !u!4 &1888994298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888994296}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.56, y: 1.19, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1974684012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,7 +2166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7694669681835496499, guid: 66881c1cdb0b64ed4824c19508c6b60d, type: 3}
       propertyPath: isMultiShotActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2074,6 +2182,8 @@ SceneRoots:
   - {fileID: 5854979337893694102}
   - {fileID: 1233711083}
   - {fileID: 1538494805}
+  - {fileID: 1888994298}
+  - {fileID: 174397530}
   - {fileID: 1261073726}
   - {fileID: 2088300623}
   - {fileID: 1974684015}

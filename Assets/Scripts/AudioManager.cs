@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Menu Audio")]
     [Tooltip("Names of scenes that should play the shared menu music. Case-sensitive and must match Unity scene names.")]
-    public string[] menuSceneNames = new string[] { "Title", "MainMenu" };
+    public string[] menuSceneNames = new string[] { "Title", "MainMenu", "Credits" };
 
     [Tooltip("Optional: assign a single AudioSource that will play for both Title and Menu scenes. If provided, this source will be played on menu scenes and stopped on gameplay scenes.")]
     public AudioSource menuMusicSource;

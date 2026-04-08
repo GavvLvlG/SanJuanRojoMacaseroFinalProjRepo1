@@ -24,12 +24,14 @@ public class EnemyBehavior : MonoBehaviour
     public string animIsMovingParam = "isMoving"; // bool
     public string animAttackTrigger = "Attack"; // trigger
 
-    Vector3 originPosition;
-    Vector3 currentTarget;
-    Coroutine wanderCoroutine;
-    Coroutine attackCoroutine;
+    // Protected so child classes can read/manipulate these when extending behavior
+    protected Vector3 originPosition;
+    protected Vector3 currentTarget;
+    protected Coroutine wanderCoroutine;
+    protected Coroutine attackCoroutine;
 
-    void Start()
+    // Made virtual so child classes can override initialization (call base.Start() if overriding)
+    protected virtual void Start()
     {
         originPosition = transform.position;
 
@@ -111,7 +113,8 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    void SetupMovement()
+    // Allow children to customize movement setup
+    protected virtual void SetupMovement()
     {
         if (wanderCoroutine != null) { StopCoroutine(wanderCoroutine); wanderCoroutine = null; }
 
@@ -128,7 +131,8 @@ public class EnemyBehavior : MonoBehaviour
         // Idle needs no coroutine
     }
 
-    void SetupAttack()
+    // Allow children to customize attack setup
+    protected virtual void SetupAttack()
     {
         if (attackCoroutine != null) { StopCoroutine(attackCoroutine); attackCoroutine = null; }
 
@@ -138,7 +142,8 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    IEnumerator WanderRoutine()
+    // Virtual so children can replace wandering behavior
+    protected virtual IEnumerator WanderRoutine()
     {
         // Basic wander: pick a random point around the origin within radius, move to it using MoveTowards, then wait
         while (true)
@@ -162,7 +167,8 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    IEnumerator AttackRoutine()
+    // Virtual so children can replace attack behavior
+    protected virtual IEnumerator AttackRoutine()
     {
         // Attack loop: attempt attack every attackRate seconds if player is in range
         while (true)
@@ -181,7 +187,8 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    void DoAttack(GameObject target)
+    // Virtual so child classes can implement different attack effects
+    protected virtual void DoAttack(GameObject target)
     {
         // Placeholder attack behavior: send a message to the target if it implements a damage handler
         // This keeps things decoupled; no error if the method doesn't exist

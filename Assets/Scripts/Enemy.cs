@@ -25,14 +25,6 @@ public class Enemy : MonoBehaviour
     public float wanderRadius = 2f;
     public float wanderInterval = 2f;
 
-    [Header("Attack defaults")]
-    [Range(0f, 1f)] public float chanceToAttack = 0.5f;
-    public float minAttackRate = 1.5f;
-    public float maxAttackRate = 3f;
-    public float minAttackDamage = 5f;
-    public float maxAttackDamage = 10f;
-    public float attackRange = 1.5f;
-
     void Start()
     {
         StartCoroutine(SpawnRoutine());
@@ -69,10 +61,10 @@ public class Enemy : MonoBehaviour
         }
 
         Vector2 pos = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
-    GameObject spawned = Instantiate(enemyPrefab, pos, Quaternion.identity);
+        GameObject spawned = Instantiate(enemyPrefab, pos, Quaternion.identity);
 
-    // Track spawn so we don't accidentally remove/destroy the initial one elsewhere
-    activeSpawns.Add(spawned);
+        // Track spawn so we don't accidentally remove/destroy the initial one elsewhere
+        activeSpawns.Add(spawned);
 
         // Ensure a child GameObject named "Behavior" holds the EnemyBehavior component (keeps hierarchy tidy)
         EnemyBehavior eb = null;
@@ -90,12 +82,9 @@ public class Enemy : MonoBehaviour
             eb = go.AddComponent<EnemyBehavior>();
         }
 
-        // Initialize with simple randomized params
+        // Initialize with simple randomized movement parameters
         float speed = Random.Range(minMoveSpeed, maxMoveSpeed);
-        bool hasAttack = Random.value < chanceToAttack;
-        float attackRate = hasAttack ? Random.Range(minAttackRate, maxAttackRate) : 0f;
-        float attackDamage = hasAttack ? Random.Range(minAttackDamage, maxAttackDamage) : 0f;
-
-        eb.InitializeSimple(speed, wanderRadius, wanderInterval, hasAttack, attackRate, attackDamage, attackRange);
+        // Pass hasAttack=false and zeroed attack parameters by default for spawned enemies
+        eb.InitializeSimple(speed, wanderRadius, wanderInterval, false, 0f, 0f, 0f);
     }
 }
