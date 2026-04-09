@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3673462017400765866}
   - component: {fileID: 2511930727901915117}
   - component: {fileID: -3572362367344041803}
-  - component: {fileID: 6690408287947688093}
   - component: {fileID: 4222245791285310388}
+  - component: {fileID: 7653237288688320350}
   m_Layer: 0
   m_Name: Shark
   m_TagString: Enemy
@@ -144,29 +144,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6690408287947688093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5298364426298996053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39213b5f07a074fe287461677b062cf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyBehavior
-  movementType: 0
-  attackType: 0
-  moveSpeed: 1
-  wanderRadius: 2
-  wanderInterval: 2
-  attackRate: 1
-  attackDamage: 5
-  attackRange: 1.5
-  animator: {fileID: 0}
-  animIsMovingParam: isMoving
-  animAttackTrigger: Attack
 --- !u!58 &4222245791285310388
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -203,3 +180,45 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.19000003
+--- !u!114 &7653237288688320350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5298364426298996053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e13f28c5e0bb547b98413b1e97c83e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChildEnemyBehavior1
+  movementType: 0
+  attackType: 0
+  moveSpeed: 1
+  wanderRadius: 2
+  wanderInterval: 2
+  attackRate: 1
+  attackDamage: 5
+  attackRange: 1.5
+  enemyBulletPrefab: {fileID: 67052305375514549, guid: 572b06a1b00df494b8ccf0d97185e126, type: 3}
+  bulletAttachPoint: {fileID: 5734140267474892267}
+  bulletSpeed: 5
+  randomizeOnSpawn: 1
+  rangedAutoFire: 1
+  moveSpeedMin: 0.5
+  moveSpeedMax: 2
+  wanderRadiusMin: 0.5
+  wanderRadiusMax: 4
+  wanderIntervalMin: 0.5
+  wanderIntervalMax: 3
+  attackRateMin: 0.5
+  attackRateMax: 3
+  attackDamageMin: 1
+  attackDamageMax: 10
+  attackRangeMin: 0.5
+  attackRangeMax: 3
+  animator: {fileID: 0}
+  animIsMovingParam: isMoving
+  animAttackTrigger: Attack
+  verticalAmplitude: 0
+  verticalFrequency: 0

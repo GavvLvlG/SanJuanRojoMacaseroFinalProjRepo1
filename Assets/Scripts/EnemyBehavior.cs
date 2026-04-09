@@ -6,40 +6,91 @@ public class EnemyBehavior : MonoBehaviour
     public enum MovementType { Idle, Wander }
     public enum AttackType { None, Melee, Ranged }
 
-    // Public state (editable or set at runtime)
+    
     public MovementType movementType = MovementType.Idle;
     public AttackType attackType = AttackType.None;
 
     public float moveSpeed = 1f;
     public float wanderRadius = 2f;
-    public float wanderInterval = 2f; // time between choosing new wander targets
+    public float wanderInterval = 2f; 
 
-    public float attackRate = 1f; // seconds between attacks
+    public float attackRate = 1f; 
     public float attackDamage = 5f;
     public float attackRange = 1.5f;
 
-    // Animator to play animations on the enemy (assign in inspector)
+    
+    public GameObject enemyBulletPrefab;
+    public Transform bulletAttachPoint;
+  
+    public float bulletSpeed = 5f;
+
+    
+    public bool randomizeOnSpawn = true;
+
+    
+    public bool rangedAutoFire = true;
+
+   
+    public float moveSpeedMin = 0.5f, moveSpeedMax = 2f;
+    public float wanderRadiusMin = 0.5f, wanderRadiusMax = 4f;
+    public float wanderIntervalMin = 0.5f, wanderIntervalMax = 3f;
+    public float attackRateMin = 0.5f, attackRateMax = 3f;
+    public float attackDamageMin = 1f, attackDamageMax = 10f;
+    public float attackRangeMin = 0.5f, attackRangeMax = 3f;
+
+ 
     public Animator animator;
-    // Names for animator parameters (change to match your Animator)
+   
     public string animIsMovingParam = "isMoving"; // bool
     public string animAttackTrigger = "Attack"; // trigger
 
-    // Protected so child classes can read/manipulate these when extending behavior
+   
     protected Vector3 originPosition;
     protected Vector3 currentTarget;
     protected Coroutine wanderCoroutine;
     protected Coroutine attackCoroutine;
 
-    // Made virtual so child classes can override initialization (call base.Start() if overriding)
-    protected virtual void Start()
+
+    protected virtual void Awake()
+    {
+        if (randomizeOnSpawn)
+        {
+            RandomizeBehavior();
+        }
+    }
+
+       protected void RandomizeBehavior()
+    {
+     
+        movementType = (Random.value > 0.5f) ? MovementType.Wander : MovementType.Idle;
+
+        moveSpeed = Random.Range(moveSpeedMin, moveSpeedMax);
+        wanderRadius = Random.Range(wanderRadiusMin, wanderRadiusMax);
+        wanderInterval = Random.Range(wanderIntervalMin, wanderIntervalMax);
+
+        
+        if (Random.value > 0.5f)
+        {
+            attackType = (Random.value > 0.5f) ? AttackType.Ranged : AttackType.Melee;
+            attackRate = Random.Range(attackRateMin, attackRateMax);
+            attackDamage = Random.Range(attackDamageMin, attackDamageMax);
+            attackRange = Random.Range(attackRangeMin, attackRangeMax);
+        }
+        else
+        {
+            attackType = AttackType.None;
+        }
+    }
+
+       protected virtual void Start()
     {
         originPosition = transform.position;
 
-        // Start behavior coroutines according to configured types
+        
         SetupMovement();
         SetupAttack();
 
-        // Initialize animator parameters to match starting state
+     
         if (animator != null)
         {
             animator.SetBool(animIsMovingParam, movementType == MovementType.Wander);
@@ -57,10 +108,10 @@ public class EnemyBehavior : MonoBehaviour
         attackDamage = aDamage;
         attackRange = aRange;
 
-        // If Start already ran, restart coroutines with new settings
+
         if (Application.isPlaying)
         {
-            // stop existing coroutines if any
+            
             if (wanderCoroutine != null) StopCoroutine(wanderCoroutine);
             if (attackCoroutine != null) StopCoroutine(attackCoroutine);
 
@@ -71,7 +122,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void InitializeDefault()
     {
-        // No-op default initializer; ensures coroutines are started with defaults
+      
         if (Application.isPlaying)
         {
             if (wanderCoroutine != null) StopCoroutine(wanderCoroutine);
@@ -82,10 +133,10 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    // Lightweight initializer used by the simplified spawner
+
     public void InitializeSimple(float speed, float radius, float wInterval, bool hasAttack, float aRate, float aDamage, float aRange)
     {
-        // Default to wander movement when a speed is provided
+
         movementType = (speed > 0f) ? MovementType.Wander : MovementType.Idle;
         moveSpeed = speed;
         wanderRadius = radius;
@@ -93,7 +144,7 @@ public class EnemyBehavior : MonoBehaviour
 
         if (hasAttack)
         {
-            attackType = AttackType.Melee; // simple default
+            attackType = AttackType.Melee; 
             attackRate = aRate;
             attackDamage = aDamage;
             attackRange = aRange;
@@ -113,7 +164,6 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    // Allow children to customize movement setup
     protected virtual void SetupMovement()
     {
         if (wanderCoroutine != null) { StopCoroutine(wanderCoroutine); wanderCoroutine = null; }
@@ -128,11 +178,10 @@ public class EnemyBehavior : MonoBehaviour
         {
             if (animator != null) animator.SetBool(animIsMovingParam, false);
         }
-        // Idle needs no coroutine
+     
     }
 
-    // Allow children to customize attack setup
-    protected virtual void SetupAttack()
+       protected virtual void SetupAttack()
     {
         if (attackCoroutine != null) { StopCoroutine(attackCoroutine); attackCoroutine = null; }
 
@@ -142,44 +191,51 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    // Virtual so children can replace wandering behavior
+
     protected virtual IEnumerator WanderRoutine()
     {
-        // Basic wander: pick a random point around the origin within radius, move to it using MoveTowards, then wait
+      
         while (true)
         {
             currentTarget = originPosition + (Vector3)(Random.insideUnitCircle * wanderRadius);
 
-            // move until close to target
+     
             while (Vector3.Distance(transform.position, currentTarget) > 0.1f)
             {
-                // Ensure the moving animation is active while moving
+         
                 if (animator != null) animator.SetBool(animIsMovingParam, true);
 
                 transform.position = Vector3.MoveTowards(transform.position, currentTarget, moveSpeed * Time.deltaTime);
                 yield return null;
             }
 
-            // wait before choosing next wander target
-            // we're idle while waiting for next target
+ 
             if (animator != null) animator.SetBool(animIsMovingParam, false);
             yield return new WaitForSeconds(wanderInterval);
         }
     }
 
-    // Virtual so children can replace attack behavior
+
     protected virtual IEnumerator AttackRoutine()
     {
-        // Attack loop: attempt attack every attackRate seconds if player is in range
+     
         while (true)
         {
-            GameObject player = GameObject.FindWithTag("Player");
-            if (player != null)
+   
+            if (attackType == AttackType.Ranged && rangedAutoFire)
             {
-                float dist = Vector3.Distance(transform.position, player.transform.position);
-                if (dist <= attackRange)
+                DoAttack(null);
+            }
+            else
+            {
+                GameObject player = GameObject.FindWithTag("Player");
+                if (player != null)
                 {
-                    DoAttack(player);
+                    float dist = Vector3.Distance(transform.position, player.transform.position);
+                    if (dist <= attackRange)
+                    {
+                        DoAttack(player);
+                    }
                 }
             }
 
@@ -187,27 +243,82 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
-    // Virtual so child classes can implement different attack effects
     protected virtual void DoAttack(GameObject target)
     {
-        // Placeholder attack behavior: send a message to the target if it implements a damage handler
-        // This keeps things decoupled; no error if the method doesn't exist
-        target.SendMessage("TakeDamage", attackDamage, SendMessageOptions.DontRequireReceiver);
-
-        // Trigger attack animation if available
-        if (animator != null)
+       
+        switch (attackType)
         {
-            // Use trigger so animation plays once per attack
-            animator.SetTrigger(animAttackTrigger);
+            case AttackType.Ranged:
+                DoRangedAttack(target);
+                break;
+            case AttackType.Melee:
+                DoMeleeAttack(target);
+                break;
+            case AttackType.None:
+            default:
+
+                Debug.LogFormat("{0} has no attack configured (type: {1})", name, attackType);
+                break;
         }
 
-        // For visibility during testing, log the attack
-        Debug.LogFormat("{0} attacked {1} for {2} damage (type: {3})", name, target.name, attackDamage, attackType);
+        if (animator != null)
+        {
+       
+            animator.SetTrigger(animAttackTrigger);
+        }
+    }
+
+
+    protected virtual void DoRangedAttack(GameObject target)
+    {
+        if (enemyBulletPrefab == null)
+        {
+            Debug.LogWarningFormat("{0} is configured as Ranged but has no enemyBulletPrefab assigned", name);
+            return;
+        }
+
+        Transform parent = (bulletAttachPoint != null) ? bulletAttachPoint : transform;
+
+        GameObject bullet = Instantiate(enemyBulletPrefab, parent.position, Quaternion.identity);
+        if (bullet == null)
+        {
+            Debug.LogWarningFormat("{0} failed to instantiate enemyBulletPrefab", name);
+            return;
+        }
+
+        
+        bullet.transform.SetParent(parent, true);
+
+        if (bulletAttachPoint != null)
+        {
+            bullet.transform.localPosition = Vector3.zero;
+        }
+
+        
+        bullet.transform.rotation = Quaternion.LookRotation(Vector3.down);
+    Rigidbody rb = bullet.GetComponent<Rigidbody>();
+    if (rb != null) rb.linearVelocity = Vector3.down * bulletSpeed;
+    Rigidbody2D rb2d = bullet.GetComponent<Rigidbody2D>();
+    if (rb2d != null) rb2d.linearVelocity = Vector2.down * bulletSpeed;
+
+        Debug.LogFormat("{0} fired a projectile downward (parented under {1})", name, parent.name);
+    }
+
+    protected virtual void DoMeleeAttack(GameObject target)
+    {
+        if (target == null)
+        {
+            Debug.LogFormat("{0} attempted a melee attack but no target was supplied", name);
+            return;
+        }
+
+        target.SendMessage("TakeDamage", attackDamage, SendMessageOptions.DontRequireReceiver);
+        Debug.LogFormat("{0} attacked {1} for {2} damage (melee)", name, target.name, attackDamage);
     }
 
     void OnDrawGizmosSelected()
     {
-        // Visualize wander radius and attack range in the editor
+      
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, wanderRadius);
 

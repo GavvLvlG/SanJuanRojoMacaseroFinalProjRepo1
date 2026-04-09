@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3864684990605765885}
   - component: {fileID: 6349937575791680238}
   - component: {fileID: -1538037010072442064}
-  - component: {fileID: 947932932921527607}
   - component: {fileID: 131027168782976454}
+  - component: {fileID: -5457079031301716922}
   m_Layer: 0
   m_Name: Alien
   m_TagString: Enemy
@@ -154,32 +154,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.21, y: 0.26}
   m_Direction: 0
---- !u!114 &947932932921527607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 105264625700527449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2730f69885c34d6dbd188d4ce0f7454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ChildEnemyBehavior2
-  movementType: 0
-  attackType: 0
-  moveSpeed: 1
-  wanderRadius: 2
-  wanderInterval: 2
-  attackRate: 1
-  attackDamage: 5
-  attackRange: 1.5
-  animator: {fileID: 0}
-  animIsMovingParam: isMoving
-  animAttackTrigger: Attack
-  aggroRange: 5
-  chaseSpeedMultiplier: 1.5
-  canChase: 1
 --- !u!50 &131027168782976454
 Rigidbody2D:
   serializedVersion: 5
@@ -207,3 +181,45 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-5457079031301716922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105264625700527449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2730f69885c34d6dbd188d4ce0f7454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChildEnemyBehavior2
+  movementType: 0
+  attackType: 0
+  moveSpeed: 1
+  wanderRadius: 2
+  wanderInterval: 2
+  attackRate: 1
+  attackDamage: 5
+  attackRange: 1.5
+  enemyBulletPrefab: {fileID: 67052305375514549, guid: 572b06a1b00df494b8ccf0d97185e126, type: 3}
+  bulletAttachPoint: {fileID: 6011535363820334452}
+  bulletSpeed: 5
+  randomizeOnSpawn: 1
+  rangedAutoFire: 1
+  moveSpeedMin: 0.5
+  moveSpeedMax: 2
+  wanderRadiusMin: 0.5
+  wanderRadiusMax: 4
+  wanderIntervalMin: 0.5
+  wanderIntervalMax: 3
+  attackRateMin: 0.5
+  attackRateMax: 3
+  attackDamageMin: 1
+  attackDamageMax: 10
+  attackRangeMin: 0.5
+  attackRangeMax: 3
+  animator: {fileID: 0}
+  animIsMovingParam: isMoving
+  animAttackTrigger: Attack
+  horizontalAmplitude: 0
+  horizontalFrequency: 0

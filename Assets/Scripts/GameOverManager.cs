@@ -37,7 +37,7 @@ public class GameOverManager : MonoBehaviour
 
     void Start()
     {
-        // Ensure time scale is normal at the beginning of the scene
+
         Time.timeScale = 1f;
 
         if (gameOverPanel != null)
@@ -79,13 +79,13 @@ public class GameOverManager : MonoBehaviour
 
     public void Restart()
     {
-        // Hide the game over UI and restore time before reloading the scene.
+        
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
         }
 
-        // Reset score and timer if their singletons are available, then reload.
+     
         if (GameManager.instance != null)
         {
             GameManager.instance.ResetScore();

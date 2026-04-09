@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PowerUp2 : PowerUp
 {
-    public float powerUpDuration = 5f; // Duration of the power-up effect
+    public float powerUpDuration = 5f; 
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
@@ -13,10 +13,10 @@ public class PowerUp2 : PowerUp
 
             if (player != null)
             {
-                // Activate the homing shot power-up
+                
                 player.ActivateHomingShot();
 
-                // Deactivate after duration
+   
                 StartCoroutine(DeactivateHomingShot(player));
             }
 

@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    public SFXManager SFXManager; // Reference to the SFXManager for playing sound effects
+    public SFXManager SFXManager; 
     [Header("Movement")]
     public float speed = 5f;
     private Animator animator;
@@ -15,9 +15,9 @@ public class Player : MonoBehaviour
     public Transform firePoint; 
 
    [Header("Power-Ups")]
-public bool isMultiShotActive = false; // Track multi-shot status
-public int multiShotCount = 3; // Number of bullets to shoot at once when multi-shot is active
-public bool isHomingShotActive = false; // Track homing shot status
+public bool isMultiShotActive = false; 
+public int multiShotCount = 3; 
+public bool isHomingShotActive = false; 
 
     private PlayerInput playerInput;
     private InputAction moveAction;
@@ -81,8 +81,8 @@ void FixedUpdate()
         }
         Move(direction);
 
-        // Only update walking animation if player is moving
-        bool isMoving = direction.sqrMagnitude > 0.01f; // small threshold for floating point error
+
+        bool isMoving = direction.sqrMagnitude > 0.01f; 
         if (animator != null)
         {
             animator.SetBool("IsWalk", isMoving);
@@ -90,7 +90,7 @@ void FixedUpdate()
 
         if (isMoving)
         {
-            // Update lastDirection only when moving
+          
             lastDirection = direction.normalized;
         }
 
@@ -103,7 +103,7 @@ void FixedUpdate()
         Vector2 velocity = normalizedDirection * speed;
         if (rb != null)
         {
-            rb.linearVelocity = velocity;  // Fixed velocity update
+            rb.linearVelocity = velocity; 
         }
     }
 
@@ -111,7 +111,7 @@ void FixedUpdate()
 {
     if (bulletPrefab != null)
     {
-        // Default to player's position if firePoint is not assigned
+ 
         Vector3 spawnPosition = (firePoint != null) ? firePoint.position : transform.position;
 
         int shotCount = isMultiShotActive ? multiShotCount : 1;
@@ -123,23 +123,23 @@ void FixedUpdate()
 
             if (isHomingShotActive)
             {
-                // Instantiate the homing bullet (make sure bulletPrefab is set to Bullet2 or your homing bullet prefab)
+        
                 bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
                 var homingComponent = bullet.GetComponent<Bullet2>();
                 if (homingComponent != null)
                 {
-                    // Initialize any specific properties if needed
-                    homingComponent.isHoming = true; // Make sure Bullet2 uses this flag
+                   
+                    homingComponent.isHoming = true; 
                 }
             }
             else
             {
-                // Instantiate normal bullet
+        
                 bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
                 Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
                 if (bulletRb != null)
                 {
-                    // Determine base direction: prefer firePoint, then lastDirection, then transform.up
+                   
                     Vector2 baseDir;
                     if (firePoint != null)
                     {
@@ -166,7 +166,7 @@ void FixedUpdate()
             {
                 SFXManager.Play("NekoShoot");
             }
-        } // end for
+        } 
     }
     else
     {
@@ -196,8 +196,7 @@ void FixedUpdate()
             {
                 SFXManager.Play("NekoDed");
             }
-            // Notify the GameManager that the player died so it can show the Game Over UI.
-            // Prefer GameManager (centralized), fall back to GameOverManager if present.
+           
             if (GameManager.instance != null)
             {
                 GameManager.instance.OnPlayerDeath();
@@ -211,7 +210,7 @@ void FixedUpdate()
                 Debug.LogError("Player: No GameManager or GameOverManager found to handle game over.");
             }
 
-            // Destroy the player object (keeps behavior consistent with previous implementation)
+            
             Destroy(gameObject);
         }
     }

@@ -9,8 +9,8 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI timerText;  
 
     [Header("Timer Settings")]
-    public bool timerRunning = true; // starts counting automatically
-    public float elapsedTime = 0f;   // in seconds
+    public bool timerRunning = true; 
+    public float elapsedTime = 0f;   
 
     void Awake()
     {
@@ -48,7 +48,6 @@ public class Timer : MonoBehaviour
         timerRunning = true;
     }
 
-    // Resets timer to zero
     public void ResetTimer()
     {
         elapsedTime = 0f;
@@ -56,7 +55,7 @@ public class Timer : MonoBehaviour
         timerRunning = true;
     }
 
-    // Update the UI display
+
     void UpdateTimerDisplay(float timeInSeconds)
     {
         int minutes = Mathf.FloorToInt(timeInSeconds / 60);

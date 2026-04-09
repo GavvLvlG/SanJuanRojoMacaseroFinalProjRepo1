@@ -32,7 +32,6 @@ public class SFXManager : MonoBehaviour
 
     private static SFXManager instance;
 
-    // A single AudioSource used to PlayOneShot SFX so clips can overlap
     private AudioSource sfxSource;
 
     void Awake()
@@ -46,13 +45,12 @@ public class SFXManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Create a dedicated AudioSource for playing SFX via PlayOneShot
+        
         sfxSource = gameObject.AddComponent<AudioSource>();
         sfxSource.playOnAwake = false;
         sfxSource.loop = false;
 
-        // Optionally create per-entry AudioSources (not required for PlayOneShot,
-        // but we keep compatibility with any future needs by assigning)
+       
         if (sfxDatas != null)
         {
             foreach (var s in sfxDatas)
@@ -63,10 +61,7 @@ public class SFXManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Play an SFX by name using the dedicated SFX audio source (PlayOneShot).
-    /// This ensures SFX are separate from music handled by AudioManager.
-    /// </summary>
+
     public static void Play(string name)
     {
         if (instance == null)
@@ -91,13 +86,10 @@ public class SFXManager : MonoBehaviour
             return;
         }
 
-        // Use the shared PlayOneShot source so multiple SFX can overlap
+       
         instance.sfxSource.PlayOneShot(entry.clip, entry.volume);
     }
 
-    /// <summary>
-    /// Instance wrapper for non-static calls (e.g., from inspector events)
-    /// </summary>
     public void PlaySfxInstance(string name)
     {
         Play(name);

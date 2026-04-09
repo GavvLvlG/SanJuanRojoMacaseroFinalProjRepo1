@@ -2088,6 +2088,7 @@ MonoBehaviour:
   mainMenuSceneName: MainMenu
   gameplaySceneName: GamePlay
   titleSceneName: Title
+  creditsSceneName: Credits
 --- !u!114 &2088300625
 MonoBehaviour:
   m_ObjectHideFlags: 0

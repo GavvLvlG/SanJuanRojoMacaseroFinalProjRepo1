@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-    // Optional legacy SoundData list — kept for compatibility
-    public SoundData[] soundDatas;
+       public SoundData[] soundDatas;
 
     [Header("Menu Audio")]
     [Tooltip("Names of scenes that should play the shared menu music. Case-sensitive and must match Unity scene names.")]
@@ -24,9 +23,7 @@ public class AudioManager : MonoBehaviour
 
     private static AudioManager instance;
 
-    // Persistent AudioSource created on the AudioManager GameObject to ensure
-    // menu music continues across scene loads even if the inspector-assigned
-    // AudioSource belonged to a scene object that gets destroyed.
+   
     private AudioSource persistentMenuSource;
 
     // Public accessor for the singleton
@@ -37,15 +34,11 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Keeps audio playing across scenes
-
-            // If the inspector assigned an AudioSource that's on a scene object,
-            // create/copy a persistent AudioSource on this AudioManager GameObject
-            // so the music continues across scene changes.
+            DontDestroyOnLoad(gameObject); 
+           
             if (menuMusicSource != null)
             {
-                // If the assigned AudioSource isn't already on this GameObject,
-                // create a persistent copy to own the music.
+               
                 if (menuMusicSource.gameObject != gameObject)
                 {
                     persistentMenuSource = gameObject.AddComponent<AudioSource>();
@@ -56,28 +49,28 @@ public class AudioManager : MonoBehaviour
                     persistentMenuSource.playOnAwake = false;
                     persistentMenuSource.spatialBlend = menuMusicSource.spatialBlend;
 
-                    // Use the persistent source from now on
+                    
                     menuMusicSource = persistentMenuSource;
                 }
                 else
                 {
-                    // If the assigned source is already on this GameObject, use it as persistent
+                    
                     persistentMenuSource = menuMusicSource;
                 }
             }
 
-            // Subscribe to scene load events to start/stop menu music
+         
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
-            Destroy(gameObject); // Prevents duplicate music objects
+            Destroy(gameObject); 
         }
     }
 
     void OnDestroy()
     {
-        // Unsubscribe if this is the singleton instance
+       
         if (instance == this)
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -87,7 +80,7 @@ public class AudioManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // If the loaded scene is explicitly configured to stop music, do that first.
+       
         if (stopMusicSceneNames != null)
         {
             foreach (var sname in stopMusicSceneNames)
@@ -96,11 +89,11 @@ public class AudioManager : MonoBehaviour
                 {
                     Debug.Log($"AudioManager: OnSceneLoaded('{scene.name}') -> stop-music scene. Stopping menu music immediately.");
 
-                    // Stop the persistent/preset menu source
+              
                     if (menuMusicSource != null && menuMusicSource.isPlaying)
                         menuMusicSource.Stop();
 
-                    // Stop any AudioSource playing the same clip
+                   
                     if (menuMusicSource != null && menuMusicSource.clip != null)
                     {
                         var allSources = FindObjectsOfType<AudioSource>();
@@ -111,7 +104,7 @@ public class AudioManager : MonoBehaviour
                         }
                     }
 
-                    // Also stop SoundData-based menu music if configured
+                  
                     if (!string.IsNullOrEmpty(menuMusicName) && soundDatas != null)
                     {
                         SoundData sd = Array.Find(soundDatas, s => s.name == menuMusicName);
@@ -123,7 +116,7 @@ public class AudioManager : MonoBehaviour
                         }
                     }
 
-                    return; // done
+                    return; 
                 }
             }
         }
@@ -145,8 +138,7 @@ public class AudioManager : MonoBehaviour
         {
             Debug.Log($"AudioManager: OnSceneLoaded('{scene.name}') -> menu scene. Playing menu music.");
 
-            // If a SoundData name is configured but no AudioSource was assigned in the inspector,
-            // try to use the SoundData's generated AudioSource so the music persists across scenes.
+            
             if (menuMusicSource == null && !string.IsNullOrEmpty(menuMusicName) && soundDatas != null)
             {
                 SoundData sd = Array.Find(soundDatas, s => s.name == menuMusicName);
@@ -169,7 +161,7 @@ public class AudioManager : MonoBehaviour
             }
             else if (!string.IsNullOrEmpty(menuMusicName) && soundDatas != null)
             {
-                // fallback: play by SoundData name
+         
                 SoundData sd = Array.Find(soundDatas, s => s.name == menuMusicName);
                 if (sd != null)
                 {
@@ -190,11 +182,11 @@ public class AudioManager : MonoBehaviour
         else
         {
             Debug.Log($"AudioManager: OnSceneLoaded('{scene.name}') -> gameplay scene. Stopping menu music.");
-            // Entering gameplay: stop the shared menu music so gameplay audio can run separately
+          
             if (menuMusicSource != null && menuMusicSource.isPlaying)
                 menuMusicSource.Stop();
 
-            // Also defensively stop any AudioSource that is playing the same clip as the menuMusicSource
+         
             if (menuMusicSource != null && menuMusicSource.clip != null)
             {
                 var allSources = FindObjectsOfType<AudioSource>();
@@ -208,7 +200,7 @@ public class AudioManager : MonoBehaviour
                 }
             }
 
-            // Also stop SoundData-based menu music if configured
+         
             if (!string.IsNullOrEmpty(menuMusicName) && soundDatas != null)
             {
                 SoundData sd = Array.Find(soundDatas, s => s.name == menuMusicName);
@@ -222,8 +214,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // Simple Play helper (keeps compatibility)
-    public void Play(string name)
+     public void Play(string name)
     {
         if (soundDatas == null)
             return;

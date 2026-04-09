@@ -2,11 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Stops (or optionally destroys) an AudioSource attached to this GameObject
-/// when a configured scene is loaded (e.g., the gameplay scene).
-/// Attach to the GameObject that holds the music you want to stop on gameplay.
-/// </summary>
+
 public class SceneChanger : MonoBehaviour
 {
     [Tooltip("Name of the scene that should stop this object's AudioSource (case-sensitive by default).")]
@@ -51,15 +47,7 @@ public class SceneChanger : MonoBehaviour
         }
     }
 
-    // Public methods intended to be called from UI Buttons in the Inspector.
-    // Examples:
-    // - Add a Button, drag the GameObject with this component into the OnClick slot,
-    //   and select SceneChanger.LoadMainMenu or LoadGameplay, or LoadSceneByName.
-
-    /// <summary>
-    /// Load a scene by its name. Use this for Buttons that pass the scene name.
-    /// </summary>
-    public void LoadSceneByName(string sceneName)
+        public void LoadSceneByName(string sceneName)
     {
         if (string.IsNullOrWhiteSpace(sceneName))
         {
@@ -70,17 +58,12 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    /// <summary>
-    /// Load a scene by its build index.
-    /// </summary>
-    public void LoadSceneByIndex(int buildIndex)
+       public void LoadSceneByIndex(int buildIndex)
     {
         SceneManager.LoadScene(buildIndex);
     }
 
-    /// <summary>
-    /// Convenience: load the configured main menu scene name.
-    /// </summary>
+  
     public void LoadMainMenu()
     {
         if (string.IsNullOrWhiteSpace(mainMenuSceneName))
@@ -92,10 +75,7 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
-    /// <summary>
-    /// Convenience: load the configured gameplay scene name.
-    /// </summary>
-    public void LoadGameplay()
+       public void LoadGameplay()
     {
         if (string.IsNullOrWhiteSpace(gameplaySceneName))
         {
@@ -106,9 +86,6 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene(gameplaySceneName);
     }
 
-    /// <summary>
-    /// Convenience: load the configured title scene name.
-    /// </summary>
     public void LoadTitle()
     {
         if (string.IsNullOrWhiteSpace(titleSceneName))
@@ -120,9 +97,7 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene(titleSceneName);
     }
 
-    /// <summary>
-    /// Convenience: load the configured credits scene name.
-    /// </summary>
+  
     public void LoadCredits()
     {
         if (string.IsNullOrWhiteSpace(creditsSceneName))
@@ -134,9 +109,7 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene(creditsSceneName);
     }
 
-    /// <summary>
-    /// Quit the application (no-op in the editor).
-    /// </summary>
+
     public void QuitGame()
     {
 #if UNITY_EDITOR
