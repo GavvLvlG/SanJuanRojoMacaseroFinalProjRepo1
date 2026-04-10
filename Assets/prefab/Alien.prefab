@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChildEnemyBehavior2
   movementType: 0
-  attackType: 0
+  attackType: 2
   moveSpeed: 1
   wanderRadius: 2
   wanderInterval: 2

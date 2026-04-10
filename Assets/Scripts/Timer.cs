@@ -36,6 +36,12 @@ public class Timer : MonoBehaviour
         }
     }
 
+    // New method to get current time
+    public float GetTime()
+    {
+        return elapsedTime;
+    }
+
     // Stops the timer
     public void StopTimer()
     {
@@ -54,7 +60,6 @@ public class Timer : MonoBehaviour
         UpdateTimerDisplay(elapsedTime);
         timerRunning = true;
     }
-
 
     void UpdateTimerDisplay(float timeInSeconds)
     {

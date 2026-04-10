@@ -12,7 +12,9 @@ public class GameOverManager : MonoBehaviour
     [Tooltip("Text component on the Game Over panel that shows the final score.")]
     public TMP_Text gameOverScoreText;
 
-    
+    [Tooltip("Text component on the Game Over panel that shows the final time.")]
+    public TMP_Text gameOverTimeText; // New reference for time text
+
     public bool dontDestroyOnLoad = false;
     [Tooltip("Name of the main menu scene to load when MainMenu() is called.")]
     public string mainMenuSceneName = "Menu";
@@ -37,7 +39,6 @@ public class GameOverManager : MonoBehaviour
 
     void Start()
     {
-
         Time.timeScale = 1f;
 
         if (gameOverPanel != null)
@@ -68,24 +69,36 @@ public class GameOverManager : MonoBehaviour
                     gameOverScoreText.text = "Score: -";
                 }
             }
+
+            // If a Timer exists and a time text is assigned, show the final time.
+            if (gameOverTimeText != null)
+            {
+                if (Timer.instance != null)
+                {
+                    float time = Timer.instance.GetTime();
+                    gameOverTimeText.text = "Time: " + time.ToString("F2") + "s"; // Show time with 2 decimal places
+                }
+                else
+                {
+                    gameOverTimeText.text = "Time: -";
+                }
+            }
         }
         else
         {
             Debug.LogWarning("GameOverManager.GameOver called but gameOverPanel is null.");
         }
 
-        Time.timeScale = 0f;
+        Time.timeScale = 0f; // Pause the game
     }
 
     public void Restart()
     {
-        
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
         }
 
-     
         if (GameManager.instance != null)
         {
             GameManager.instance.ResetScore();

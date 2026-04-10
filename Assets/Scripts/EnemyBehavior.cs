@@ -270,40 +270,41 @@ public class EnemyBehavior : MonoBehaviour
 
 
     protected virtual void DoRangedAttack(GameObject target)
+{
+    if (enemyBulletPrefab == null)
     {
-        if (enemyBulletPrefab == null)
-        {
-            Debug.LogWarningFormat("{0} is configured as Ranged but has no enemyBulletPrefab assigned", name);
-            return;
-        }
-
-        Transform parent = (bulletAttachPoint != null) ? bulletAttachPoint : transform;
-
-        GameObject bullet = Instantiate(enemyBulletPrefab, parent.position, Quaternion.identity);
-        if (bullet == null)
-        {
-            Debug.LogWarningFormat("{0} failed to instantiate enemyBulletPrefab", name);
-            return;
-        }
-
-        
-        bullet.transform.SetParent(parent, true);
-
-        if (bulletAttachPoint != null)
-        {
-            bullet.transform.localPosition = Vector3.zero;
-        }
-
-        
-        bullet.transform.rotation = Quaternion.LookRotation(Vector3.down);
-    Rigidbody rb = bullet.GetComponent<Rigidbody>();
-    if (rb != null) rb.linearVelocity = Vector3.down * bulletSpeed;
-    Rigidbody2D rb2d = bullet.GetComponent<Rigidbody2D>();
-    if (rb2d != null) rb2d.linearVelocity = Vector2.down * bulletSpeed;
-
-        Debug.LogFormat("{0} fired a projectile downward (parented under {1})", name, parent.name);
+        Debug.LogWarning(name + " has no bullet prefab!");
+        return;
     }
 
+    // Use bulletAttachPoint or fallback to the enemy's position
+    Transform parent = (bulletAttachPoint != null) ? bulletAttachPoint : transform;
+
+    // Instantiate the bullet prefab at the correct position and rotation
+    GameObject bullet = Instantiate(enemyBulletPrefab, parent.position, Quaternion.identity);
+
+    // Do NOT parent the bullet to avoid it being hidden inside the enemy
+    bullet.transform.SetParent(null);
+
+    // If your bullet is 3D (use Rigidbody)
+    Rigidbody rb = bullet.GetComponent<Rigidbody>();
+    if (rb != null)
+    {
+        // Apply downward movement in 3D
+        rb.linearVelocity = Vector3.down * bulletSpeed;
+    }
+
+    // If your bullet is 2D (use Rigidbody2D)
+    Rigidbody2D rb2d = bullet.GetComponent<Rigidbody2D>();
+    if (rb2d != null)
+    {
+        // Apply downward movement in 2D
+        rb2d.linearVelocity = Vector2.down * bulletSpeed;
+    }
+
+    // Debug log to confirm bullet firing
+    Debug.Log(name + " fired bullet downward!");
+}
     protected virtual void DoMeleeAttack(GameObject target)
     {
         if (target == null)
